@@ -9,7 +9,7 @@ const Notification = () => {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       dispatch(setNotification(''));
-    }, 5000)
+    }, notification.duration*1000)
 
     return () => {
       clearTimeout(timeoutId)
@@ -24,7 +24,7 @@ const Notification = () => {
 
   return (
     <div style={style}>
-      {notification}
+      {notification.message}
     </div>
   )
 }
