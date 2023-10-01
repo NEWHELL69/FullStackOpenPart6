@@ -1,9 +1,11 @@
 /* eslint-disable react/prop-types */
 import { useQueryClient, useMutation } from '@tanstack/react-query'
 import { updateAnecdote } from '../requests'
+import { useNotificationDispatch } from '../notificationContex'
 
 const AnecdoteList = ({ anecdotes }) => {
   const queryClient = useQueryClient()
+  const notificationDispatch = useNotificationDispatch()
 
   const newNoteMutation = useMutation(updateAnecdote, {
     onSuccess: (updatedAnecdote) => {
@@ -14,6 +16,7 @@ const AnecdoteList = ({ anecdotes }) => {
         }
       });
       queryClient.setQueryData({ queryKey: ['anecdotes'] }, anecdotes)
+      notificationDispatch({type: 'SET', payload: `You voted "${updatedAnecdote.content}"`})
     }
   })
 
